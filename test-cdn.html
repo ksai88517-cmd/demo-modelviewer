@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDN Test</title>
+</head>
+<body>
+    <h1>Testing CDN Access</h1>
+    <div id="result"></div>
+    
+    <script>
+        console.log('Testing CDN access...');
+        
+        // Test 1: Three.js
+        console.log('Loading THREE from CDN...');
+        var scriptTag = document.createElement('script');
+        scriptTag.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+        scriptTag.onload = function() {
+            console.log('✅ THREE loaded');
+            document.getElementById('result').innerHTML += '<p>✅ THREE.js loaded</p>';
+            
+            // Test 2: GLTFLoader
+            console.log('Loading GLTFLoader...');
+            var loader = document.createElement('script');
+            loader.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/GLTFLoader.min.js';
+            loader.onload = function() {
+                console.log('✅ GLTFLoader loaded');
+                document.getElementById('result').innerHTML += '<p>✅ GLTFLoader loaded</p>';
+                console.log('THREE.GLTFLoader:', typeof THREE.GLTFLoader);
+            };
+            loader.onerror = function() {
+                console.error('❌ GLTFLoader failed');
+                document.getElementById('result').innerHTML += '<p>❌ GLTFLoader load failed</p>';
+            };
+            document.head.appendChild(loader);
+        };
+        scriptTag.onerror = function() {
+            console.error('❌ THREE failed to load');
+            document.getElementById('result').innerHTML = '<p>❌ THREE.js CDN failed. No internet access?</p>';
+        };
+        document.head.appendChild(scriptTag);
+    </script>
+</body>
+</html>

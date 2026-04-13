@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>3D Model Viewer - Three.js</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <!-- Loading Indicator -->
+    <div id="loading-container">
+        <div class="spinner"></div>
+        <div id="loading-text">Loading Model...</div>
+        <div id="progress-bar">
+            <div id="progress-fill"></div>
+        </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="error-message"></div>
+
+    <!-- Info Panel -->
+    <div id="info">
+        <h2>3D Model Viewer</h2>
+        <div class="info-item">
+            <div class="label">Status</div>
+            <div id="status">Initializing...</div>
+        </div>
+        <div class="info-item">
+            <div class="label">Model Vertices</div>
+            <div id="vertices">-</div>
+        </div>
+        <div class="label controls-label">Controls</div>
+        <div class="controls-info">
+            🖱️ Drag to rotate<br>
+            🔍 Scroll to zoom<br>
+            Right-click to pan
+        </div>
+    </div>
+
+    <!-- Three.js Library - Primary CDN with fallback -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        if (!window.THREE) {
+            // Fallback if primary CDN fails
+            var script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/three@r128/build/three.min.js';
+            document.head.appendChild(script);
+        }
+    </script>
+    
+    <!-- GLTFLoader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/GLTFLoader.min.js"></script>
+    <script>
+        if (!window.THREE?.GLTFLoader) {
+            console.warn('GLTFLoader not available, trying fallback...');
+            var script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/three@r128/examples/js/loaders/GLTFLoader.js';
+            document.head.appendChild(script);
+        }
+    </script>
+    
+    <!-- OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.min.js"></script>
+    <script>
+        if (!window.OrbitControls) {
+            console.warn('OrbitControls not available, trying fallback...');
+            var script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/three@r128/examples/js/controls/OrbitControls.js';
+            document.head.appendChild(script);
+        }
+    </script>
+
+    <!-- Main Script -->
+    <script src="script.js?v=2"></script>
+</body>
+</html>

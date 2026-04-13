@@ -1,0 +1,133 @@
+/* ============================================================================
+3D MODEL VIEWER - STYLESHEET
+   ============================================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+    color: #fff;
+    overflow: hidden;
+}
+
+#canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* ============================================================================
+LOADING INDICATOR
+   ============================================================================ */
+#loading-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 100;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#loading-text {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+#progress-bar {
+    width: 200px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+#progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    width: 0%;
+    transition: width 0.1s ease;
+}
+
+/* ============================================================================
+INFO PANEL
+   ============================================================================ */
+#info {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 300px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#info h2 {
+    margin-bottom: 10px;
+    color: #4CAF50;
+}
+
+.info-item {
+    margin: 5px 0;
+}
+
+.label {
+    color: #aaa;
+    font-size: 12px;
+}
+
+.controls-label {
+    margin-top: 15px;
+    display: block;
+}
+
+.controls-info {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 5px;
+}
+
+/* ============================================================================
+ERROR MESSAGE
+   ============================================================================ */
+#error-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(244, 67, 54, 0.9);
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: none;
+    max-width: 400px;
+    z-index: 101;
+}
