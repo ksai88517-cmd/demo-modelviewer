@@ -304,7 +304,8 @@ ERROR MESSAGE
 #back-button {
     position: fixed;
     top: 20px;
-    left: 20px;
+    right: 20px;
+    left: auto;
     display: none;
     z-index: 102;
     padding: 12px 16px;
@@ -360,7 +361,8 @@ ERROR MESSAGE
 
     #back-button {
         top: 12px;
-        left: 12px;
+        right: 12px;
+        left: auto;
         padding: 10px 14px;
         font-size: 13px;
     }
