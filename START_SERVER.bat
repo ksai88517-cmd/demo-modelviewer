@@ -7,5 +7,12 @@ echo Opening at: http://localhost:8000
 echo.
 echo To stop the server, press CTRL+C
 echo.
-python -m http.server 8000
+
+where py >nul 2>nul
+if not errorlevel 1 (
+	py -3 -m http.server 8000
+) else (
+	python -m http.server 8000
+)
+
 pause

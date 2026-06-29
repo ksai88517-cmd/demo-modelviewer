@@ -6,16 +6,56 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <title>3D Model Viewer - Three.js</title>
+    <title>3D Model Viewer - Upload and View</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <canvas id="canvas"></canvas>
 
+    <div id="app-shell">
+        <div id="splash-screen" class="panel-card">
+            <div class="brand-lockup">
+                <div class="brand-mark" aria-hidden="true">
+                    <span></span>
+                </div>
+                <div>
+                    <p class="eyebrow">3D Viewer</p>
+                    <h1>ModelDrop</h1>
+                </div>
+            </div>
+
+            <p class="splash-copy">
+                Upload a compatible 3D file and view it instantly in the browser.
+            </p>
+
+            <div class="format-list" aria-label="Supported 3D formats">
+                <span>.glb</span>
+                <span>.gltf</span>
+                <span>.fbx</span>
+            </div>
+
+            <label id="upload-dropzone" for="model-upload" class="upload-dropzone">
+                <input id="model-upload" type="file" accept=".glb,.gltf,.fbx,.bin,.png,.jpg,.jpeg,.webp,.tga,.gif,.ktx2,.dds" multiple />
+                <strong>Choose a 3D file</strong>
+                <span>single-file .glb or .fbx, or a .gltf with its assets</span>
+            </label>
+
+            <label for="gltf-folder-upload" class="secondary-upload">
+                <input id="gltf-folder-upload" type="file" webkitdirectory multiple accept=".gltf,.bin,.png,.jpg,.jpeg,.webp,.tga" />
+                Choose a .gltf folder
+            </label>
+
+            <p class="format-note">
+                Best results: upload a single .glb or .fbx file. For .gltf, upload the .gltf file together with its .bin and texture files, or use the folder button.
+                The main picker also accepts .bin and common texture files needed by packaged .gltf models.
+            </p>
+        </div>
+    </div>
+
     <!-- Loading Indicator -->
-    <div id="loading-container">
+    <div id="loading-container" aria-live="polite">
         <div class="spinner"></div>
-        <div id="loading-text">Loading Model...</div>
+        <div id="loading-text">Loading file...</div>
         <div id="progress-bar">
             <div id="progress-fill"></div>
         </div>
@@ -23,6 +63,9 @@
 
     <!-- Error Message -->
     <div id="error-message"></div>
+
+    <!-- Back Button -->
+    <button id="back-button" type="button" aria-label="Go back to upload screen">Back</button>
 
     <!-- Info Panel -->
     <div id="info">
@@ -43,40 +86,22 @@
         </div>
     </div>
 
-    <!-- Three.js Library - Primary CDN with fallback -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        if (!window.THREE) {
-            // Fallback if primary CDN fails
-            var script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/npm/three@r128/build/three.min.js';
-            document.head.appendChild(script);
-        }
-    </script>
+    <!-- Local Three.js Library -->
+    <script src="vendor/three/three.min.js"></script>
     
-    <!-- GLTFLoader -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/GLTFLoader.min.js"></script>
-    <script>
-        if (!window.THREE?.GLTFLoader) {
-            console.warn('GLTFLoader not available, trying fallback...');
-            var script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/npm/three@r128/examples/js/loaders/GLTFLoader.js';
-            document.head.appendChild(script);
-        }
-    </script>
+    <!-- GLTFLoader - This properly attaches to THREE namespace -->
+    <script src="vendor/three/examples/js/loaders/GLTFLoader.js"></script>
+
+    <!-- fflate dependency for FBXLoader -->
+    <script src="vendor/three/examples/js/libs/fflate.min.js"></script>
+
+    <!-- FBXLoader -->
+    <script src="vendor/three/examples/js/loaders/FBXLoader.js"></script>
     
     <!-- OrbitControls -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.min.js"></script>
-    <script>
-        if (!window.OrbitControls) {
-            console.warn('OrbitControls not available, trying fallback...');
-            var script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/npm/three@r128/examples/js/controls/OrbitControls.js';
-            document.head.appendChild(script);
-        }
-    </script>
+    <script src="vendor/three/examples/js/controls/OrbitControls.js"></script>
 
     <!-- Main Script -->
-    <script src="script.js?v=2"></script>
+    <script src="script.js?v=4"></script>
 </body>
 </html>
